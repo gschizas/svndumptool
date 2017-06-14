@@ -105,11 +105,11 @@ class SvnDumpEdit:
         Print a list of the files to be edited.
         """
         for ( r, rev ) in self.__edit_files.iteritems():
-            print "Edit Revision %d" % r
+            print("Edit Revision %d" % r)
             for ( f, fn ) in rev.iteritems():
-                print "  %s:" % f
+                print("  %s:" % f)
                 for ( e, arg ) in fn.iteritems():
-                    print "    + %-9s -> %s" % ( e, arg )
+                    print("    + %-9s -> %s" % ( e, arg ))
 
     def __print( self, level, msg ):
         """
@@ -121,7 +121,7 @@ class SvnDumpEdit:
         @param msg: The message to print.
         """
         if self.verbose >= level:
-            print msg
+            print(msg)
         
     def execute( self ):
         """
@@ -302,7 +302,7 @@ def svndump_edit_cmdline( appname, args ):
     ( options, args ) = parser.parse_args( args )
 
     if len( args ) < 1 or len( args ) > 2:
-        print "please specify one source and optionally one destination file."
+        print("please specify one source and optionally one destination file.")
         return 1
     edit.set_input_file( args[0] )
     if len( args ) == 2:

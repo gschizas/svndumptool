@@ -65,14 +65,14 @@ def copy_remove_prop(propname, regex, srcfile, dstfile):
 
                 propvalue = node.get_property(propname)
                 if propvalue is not None and _regex.match(propvalue):
-                    print "removing property " + propname + " with value " + propvalue.strip()
+                    print("removing property " + propname + " with value " + propvalue.strip())
                     node.del_property(propname)
                 dstdmp.add_node(node)
 
             revmap[srcdmp.get_rev_nr()] = dstdmp.get_rev_nr()
             hasrev = srcdmp.read_next_rev()
     else:
-        print "no revisions in the source dump '%s' ???" % srcfile
+        print("no revisions in the source dump '%s' ???" % srcfile)
 
     # cleanup
     srcdmp.close()
@@ -101,7 +101,7 @@ def svndump_remove_prop(appname, args):
     (options, args) = parser.parse_args(args)
 
     if len(args) != 4:
-        print "specify a property name, regex, source dump file and a destination dump file"
+        print("specify a property name, regex, source dump file and a destination dump file")
         return 1
 
     copy_remove_prop(args[0], args[1], args[2], args[3])

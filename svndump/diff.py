@@ -154,7 +154,7 @@ class SvnDumpDiffCallback:
         s = 0
         if show:
             s = 1
-        if self.__summary.has_key( type ):
+        if type in self.__summary:
             counts = self.__summary[type]
             self.__summary[type] = [ counts[0] + 1, counts[1] + s ]
         else:
@@ -237,7 +237,7 @@ class SvnDumpDiffCallback:
         """
 
         show = True
-        if self.__ignores.has_key( type ):
+        if type in self.__ignores:
             show = False
         self.__summary_inc( type, show )
         if show:
@@ -261,9 +261,9 @@ class SvnDumpDiffCallback:
         """
 
         show = True
-        if self.__ignores.has_key( "RevPropDiff" ):
+        if "RevPropDiff" in self.__ignores:
             show = False
-        if self.__ignore_revprop.has_key( name ):
+        if name in self.__ignore_revprop:
             show = False
         self.__summary_inc( "RevPropDiff", show )
         if show:
@@ -290,9 +290,9 @@ class SvnDumpDiffCallback:
         """
 
         show = True
-        if self.__ignores.has_key( "RevPropMissing" ):
+        if "RevPropMissing" in self.__ignores:
             show = False
-        if self.__ignore_revprop.has_key( name ):
+        if name in self.__ignore_revprop:
             show = False
         self.__summary_inc( "RevPropMissing", show )
         if show:
@@ -328,7 +328,7 @@ class SvnDumpDiffCallback:
         """
 
         show = True
-        if self.__ignores.has_key( type ):
+        if type in self.__ignores:
             show = False
         self.__summary_inc( type, show )
         if show:
@@ -351,7 +351,7 @@ class SvnDumpDiffCallback:
         """
 
         show = True
-        if self.__ignores.has_key( "NodeMissing" ):
+        if "NodeMissing" in self.__ignores:
             show = False
         self.__summary_inc( "NodeMissing", show )
         if show:
@@ -375,7 +375,7 @@ class SvnDumpDiffCallback:
         """
 
         show = True
-        if self.__ignores.has_key( "WrongMD5" ):
+        if "WrongMD5" in self.__ignores:
             show = False
         self.__summary_inc( "WrongMD5", show )
         if show:
@@ -399,7 +399,7 @@ class SvnDumpDiffCallback:
         """
 
         show = True
-        if self.__ignores.has_key( type ):
+        if type in self.__ignores:
             show = False
         self.__summary_inc( type, show )
         if show:
@@ -421,9 +421,9 @@ class SvnDumpDiffCallback:
         """
 
         show = True
-        if self.__ignores.has_key( "PropDiff" ):
+        if "PropDiff" in self.__ignores:
             show = False
-        if self.__ignore_property.has_key( name ):
+        if name in self.__ignore_property:
             show = False
         self.__summary_inc( "PropDiff", show )
         if show:
@@ -450,9 +450,9 @@ class SvnDumpDiffCallback:
         """
 
         show = True
-        if self.__ignores.has_key( "PropMissing" ):
+        if "PropMissing" in self.__ignores:
             show = False
-        if self.__ignore_property.has_key( name ):
+        if name in self.__ignore_property:
             show = False
         self.__summary_inc( "PropMissing", show )
         if show:
@@ -581,7 +581,7 @@ class SvnDumpDiff:
         for i in range( 0, n1 ):
             node = dump1.get_node( i )
             nodekey = node.get_action() + ":" + node.get_path()
-            if list2.has_key( nodekey ):
+            if nodekey in list2:
                 i2 = list2[ nodekey ]
                 del list2[ nodekey ]
             else:
@@ -781,14 +781,14 @@ class SvnDumpDiff:
             props2 = {}
         common = []
         for name in props1:
-            if props2.has_key( name ):
+            if name in props2:
                 common.append( name )
             elif revprops:
                 callback.revprop_missing( 2, name, props1[name] )
             else:
                 callback.prop_missing( 2, name, props1[name] )
         for name in props2:
-            if props1.has_key( name ):
+            if name in props1:
                 pass
             elif revprops:
                 callback.revprop_missing( 1, name, props2[name] )

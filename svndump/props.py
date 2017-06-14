@@ -324,10 +324,10 @@ class SvnConfigParser:
         @rtype: string
         @return: Value for the specified key or empty string if not found.
         """
-        if not self._sections.has_key( section ):
+        if section not in self._sections:
             return ""
         sdict = self._sections[section]
-        if not sdict.has_key( key ):
+        if key not in sdict:
             return ""
         return sdict[key]
 
@@ -340,7 +340,7 @@ class SvnConfigParser:
         @rtype: ((key,value)...)
         @return: List of key/value pairs.
         """
-        if not self._sections.has_key( section ):
+        if section not in self._sections:
             return []
         return self._sections[section].items()
 

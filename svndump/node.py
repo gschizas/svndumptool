@@ -151,7 +151,7 @@ class SvnDumpNode:
         @rtype: string
         @return: Value of the property.
         """
-        if self.__properties != None and self.__properties.has_key( name ):
+        if self.__properties != None and name in self.__properties:
             return self.__properties[name]
         else:
             return None
@@ -309,7 +309,7 @@ class SvnDumpNode:
             raise SvnDumpException, "Cannot delete properties for action '%s'" \
                     % self.__action
         if self.__properties != None:
-            if self.__properties.has_key( name ):
+            if name in self.__properties:
                 del self.__properties[name]
                 if len( self.__properties ) == 0:
                     self.__properties = None

@@ -155,7 +155,7 @@ class SvnDumpCvs2SvnFix:
         @rtype: string
         @return: "dir" for dirs, "file" for files or None.
         """
-        if not self.__history.has_key( path ):
+        if path not in self.__history:
             return None
         nodehist = self.__history[ path ]
         i = self.__rev_index( nodehist, revnr )
@@ -191,7 +191,7 @@ class SvnDumpCvs2SvnFix:
         @param node: Node to add.
         """
         path = node.get_path()
-        if not self.__history.has_key( path ):
+        if path not in self.__history:
             # create revision list for path
             self.__history[ path ] = [ ( node.get_kind() ) ]
         # add revision range
@@ -212,7 +212,7 @@ class SvnDumpCvs2SvnFix:
                 if i != None:
                     npath = path + cfnodepath[cfpathlen:]
                     # add new path
-                    if not self.__history.has_key( npath ):
+                    if npath not in self.__history:
                         # create revision list for npath
                         self.__history[ npath ] = [ cfnodehist[0] ]
                     # add revision range

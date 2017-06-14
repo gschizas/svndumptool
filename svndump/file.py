@@ -438,11 +438,11 @@ class SvnDumpFile:
         # read revision properties
         self.__rev_props = self.__get_prop_list()
         self.__skip_empty_line()
-        if not self.__rev_props.has_key("svn:log"):
+        if "svn:log" not in self.__rev_props:
             self.__rev_props["svn:log"] = ""
-        if not self.__rev_props.has_key("svn:author"):
+        if "svn:author" not in self.__rev_props:
             self.__rev_props["svn:author"] = ""
-        if self.__rev_props.has_key("svn:date"):
+        if "svn:date" in self.__rev_props:
             self.set_rev_date(self.__rev_props["svn:date"] )
         else:
             self.set_rev_date( "" )
@@ -453,18 +453,18 @@ class SvnDumpFile:
         tags = self.__get_tag_list()
         while len(tags) != 0:
             # check that it's not the next revision
-            if tags.has_key( "Revision-number:" ):
+            if "Revision-number:" in tags:
                 # go back to start of tag list
                 self.__file.seek( self.__tag_start_offset )
                 self.__line_nr = self.__tag_start_line_nr
                 break
             # get node properties
-            if tags.has_key( "Prop-content-length:" ):
+            if "Prop-content-length:" in tags:
                 properties = self.__get_prop_list()
             else:
                 properties = None
             # skip node data
-            if tags.has_key( "Text-content-length:" ):
+            if "Text-content-length:" in tags:
                 tags["Text-content-length:"] = int( tags["Text-content-length:"] )
                 offset = self.__file.tell()
                 self.__skip_bin( tags["Text-content-length:"] )
@@ -475,19 +475,19 @@ class SvnDumpFile:
             path = tags["Node-path:"].lstrip('/')
             action = tags["Node-action:"]
             kind = ""
-            if tags.has_key( "Node-kind:" ):
+            if "Node-kind:" in tags:
                 kind = tags["Node-kind:"]
             node = SvnDumpNode( path, action, kind )
             if properties != None:
                 node.set_properties( properties )
-            if tags.has_key( "Node-copyfrom-path:" ):
+            if "Node-copyfrom-path:" in tags:
                 node.set_copy_from( tags["Node-copyfrom-path:"].lstrip('/'),
                                     int(tags["Node-copyfrom-rev:"]) )
-            if tags.has_key( "Text-content-md5:" ):
+            if "Text-content-md5:" in tags:
               md5 = tags["Text-content-md5:"]
             else:
               md5 = ""
-            if tags.has_key( "Text-content-length:" ):
+            if "Text-content-length:" in tags:
                 node.set_text_fileobj( self.__file, offset,
                                        int(tags["Text-content-length:"]),
                                        md5 )
@@ -578,7 +578,7 @@ class SvnDumpFile:
         @rtype: bool
         @return: True if the revision has that property.
         """
-        return self.__rev_props.has_key(name)
+        return name in self.__rev_props
 
     def get_rev_props( self ):
         """
@@ -637,7 +637,7 @@ class SvnDumpFile:
         nodes = []
         for a in actions:
             upath = ( a, path )
-            if self.__nodes.has_key( upath ):
+            if upath in self.__nodes:
                 nodes.append( self.__nodes[upath] )
         return nodes
 
@@ -739,13 +739,13 @@ class SvnDumpFile:
 
         # set rev nr and check rev props
         self.__rev_nr = self.__rev_nr + 1
-        if not revProps.has_key("svn:date"):
+        if "svn:date" not in revProps:
             revProps["svn:date"] = self.set_rev_date( "" )
         else:
             revProps["svn:date"] = self.set_rev_date( revProps["svn:date"] )
-        if not revProps.has_key("svn:author"):
+        if "svn:author" not in revProps:
             revProps["svn:author"] = ""
-        if not revProps.has_key("svn:log"):
+        if "svn:log" not in revProps:
             revProps["svn:log"] = ""
         self.__rev_props = revProps
 
@@ -920,7 +920,7 @@ class SvnDumpFileWithHistory( SvnDumpFile ):
         # use the current rev number if not gien
         if revnr is None:
             revnr = self.get_rev_nr()
-        if self.__rev_errors.has_key(revnr):
+        if revnr in self.__rev_errors:
             return self.__rev_errors[revnr]
         else:
             return None
@@ -935,7 +935,7 @@ class SvnDumpFileWithHistory( SvnDumpFile ):
         @param errinfo: Information about the error
         """
 
-        if self.__rev_errors.has_key(revnr):
+        if revnr in self.__rev_errors:
             self.__rev_errors[revnr].append( errinfo )
         else:
             self.__rev_errors[revnr] = [ errinfo ]
@@ -1008,7 +1008,7 @@ class SvnDumpFileWithHistory( SvnDumpFile ):
         @rtype: string
         @return: "D" for dirs, "F" for files or None.
         """
-        if not self.__nodehist.has_key( path ):
+        if path not in self.__nodehist:
             return None
         nodehist = self.__nodehist[ path ]
         i = self.__nodehist_get_rev_index( nodehist, revnr )
@@ -1044,7 +1044,7 @@ class SvnDumpFileWithHistory( SvnDumpFile ):
         @param node: Node to add.
         """
         path = node.get_path()
-        if not self.__nodehist.has_key( path ):
+        if path not in self.__nodehist:
             # create revision list for path
             kind = "D"
             if node.get_kind() == "file":
@@ -1068,7 +1068,7 @@ class SvnDumpFileWithHistory( SvnDumpFile ):
                 if i != None:
                     npath = path + cfnodepath[cfpathlen:]
                     # add new path
-                    if not self.__nodehist.has_key( npath ):
+                    if npath not in self.__nodehist:
                         # create revision list for npath
                         kind = "D"
                         if node.get_kind() == "file":

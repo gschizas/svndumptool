@@ -170,7 +170,7 @@ class ListDict( dict ):
         """
         if type( key ) is int:
             key = self.__index[key]
-        if not self.has_key( key ):
+        if key not in self:
             self.__index.append( key )
         dict.__setitem__( self, key, value )
 

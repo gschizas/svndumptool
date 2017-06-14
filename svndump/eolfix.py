@@ -40,7 +40,7 @@ def eolfix_callback_prop( dumpfile, node, textfiles ):
     """
 
     # do we allready know that it is a textfile ?
-    if textfiles.has_key( node.get_path() ):
+    if node.get_path() in textfiles:
         # +++ should i check mime-type here ?
         if node.get_action() == "delete":
             del textfiles[node.get_path()]
@@ -52,7 +52,7 @@ def eolfix_callback_prop( dumpfile, node, textfiles ):
     properties = node.get_properties()
     if properties == None:
         return False
-    if not properties.has_key("svn:eol-style"):
+    if "svn:eol-style" not in properties:
         return False
 
     # is a text file, add to the list
@@ -378,7 +378,7 @@ class SvnDumpEolFix:
         if need_conv:
             # special fix option for rev/file ?
             key = ( revnr, node.get_path() )
-            if self.__fix_rev_path.has_key( key ):
+            if key in self.__fix_rev_path:
                 fix = self.__fix_rev_path[key]
             print "    selected file, convert (fix option %d)" % fix
             if self.__dry_run or fix == 0:

@@ -334,7 +334,7 @@ class SvnDumpMerge:
         newMergeInfo = ""
         if node.has_properties():
             properties = node.get_properties()
-            if properties.has_key('svn:mergeinfo'):
+            if 'svn:mergeinfo' in properties:
                 mergeInfo = properties['svn:mergeinfo']
                 for line in mergeInfo.split('\n'):
                     m = re.match('^(.*):(.*)', line)

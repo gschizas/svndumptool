@@ -90,7 +90,7 @@ class SvnDumpExport:
 
         if repospath.startswith('/'):
             repospath = repospath[1:]
-        if not self.__exports.has_key( revnr ):
+        if revnr not in self.__exports:
             self.__exports[revnr] = {}
         self.__exports[revnr][repospath] = filename
 
@@ -119,7 +119,7 @@ class SvnDumpExport:
 
         while dump.read_next_rev():
             revnr = dump.get_rev_nr()
-            if self.__exports.has_key( revnr ):
+            if revnr in self.__exports:
                 for path, filename in self.__exports[revnr].iteritems():
                     print "r%-6d %s" % ( revnr, path )
                     nodes = dump.get_nodes_by_path( path, "ACR" )
@@ -509,7 +509,7 @@ class SvnDumpLs:
             # loop over missing revisions
             prevrevnr += 1
             while prevrevnr < revnr:
-                if copyfromrevs.has_key(prevrevnr):
+                if prevrevnr in copyfromrevs:
                     copyfromrevs[prevrevnr] = filedict.keys()[:]
                 prevrevnr += 1
             if revnr > self.revNr:
@@ -538,7 +538,7 @@ class SvnDumpLs:
                     for subpath in filedict.keys()[:]:
                         if subpath.startswith( path ):
                             del filedict[subpath]
-            if copyfromrevs.has_key(revnr):
+            if revnr in copyfromrevs:
                 copyfromrevs[revnr] = filedict.keys()[:]
         dump.close()
 

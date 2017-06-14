@@ -93,11 +93,11 @@ def svn_create_dump_file( filename, fileid, data, reposdir, wcdir ):
         print "=" * 80
         print "=== Revision %d" % revnr
         print ""
-        if rev.has_key( "author" ):
+        if "author" in rev:
             author = rev["author"]
         else:
             author = "t%d" % revnr
-        if rev.has_key( "log" ):
+        if "log" in rev:
             log = rev["log"]
         else:
             log = 'log for file "%s" rev %d' % ( fileid, revnr )
@@ -121,7 +121,7 @@ def svn_create_dump_file( filename, fileid, data, reposdir, wcdir ):
                 if isdir( nodefile ):
                     # allready there, probably copied with parent dir
                     pass
-                elif nodedata.has_key( "copyfrom" ):
+                elif "copyfrom" in nodedata:
                     # copy from repos
                     copyfrom = nodedata["copyfrom"]
                     fromurl = "file://%s/%s" % ( reposdir, copyfrom[0] )
@@ -138,7 +138,7 @@ def svn_create_dump_file( filename, fileid, data, reposdir, wcdir ):
                     run( "svn rm '%s'" % nodefile )
                 if action == "add" and not isfile( nodefile ):
                     # action 'add' and file doesn't exist
-                    if nodedata.has_key( "copyfrom" ):
+                    if "copyfrom" in nodedata:
                         # copy from repos
                         copyfrom = nodedata["copyfrom"]
                         fromurl = "file://%s/%s" % ( reposdir, copyfrom[0] )
@@ -152,7 +152,7 @@ def svn_create_dump_file( filename, fileid, data, reposdir, wcdir ):
                     else:
                         # it's a normal add
                         add = True
-                if nodedata.has_key( "text" ):
+                if "text" in nodedata:
                     # set/modify text
                     print "write text to '%s'" % path
                     text = create_text( nodedata["text"], fileid, revnr )
@@ -161,7 +161,7 @@ def svn_create_dump_file( filename, fileid, data, reposdir, wcdir ):
                     fileobj.close()
                 if add:
                     run( "svn add --no-auto-props '%s'" % nodefile )
-            if nodedata.has_key( "props" ):
+            if "props" in nodedata:
                 # for each property do a propset or propdel
                 props = nodedata["props"]
                 for name, value in props.items():
@@ -212,11 +212,11 @@ def py_create_dump_file( filename, fileid, data, tmpdir ):
         print "  rev %d" % revnr
         revprops = {}
         revprops["svn:date"] = rev["date"]
-        if rev.has_key( "author" ):
+        if "author" in rev:
             revprops["svn:author"] = rev["author"]
         else:
             revprops["svn:author"] = "t%d" % revnr
-        if rev.has_key( "log" ):
+        if "log" in rev:
             revprops["svn:log"] = rev["log"]
         else:
             revprops["svn:log"] = 'log for file "%s" rev %d' % \
@@ -233,10 +233,10 @@ def py_create_dump_file( filename, fileid, data, tmpdir ):
             path = nodedata["path"]
             print "    %s %s '%s'" % ( action, kind, path )
             node = SvnDumpNode( path, action, kind )
-            if nodedata.has_key( "copyfrom" ):
+            if "copyfrom" in nodedata:
                 copyfrom = nodedata["copyfrom"]
                 node.set_copy_from( copyfrom[0], copyfrom[1] )
-            if nodedata.has_key( "text" ):
+            if "text" in nodedata:
                 textfile = "%s/text-%d" % ( tmpdir, inode )
                 filerevtxt = "file %s rev %d\n" % ( fileid, revnr )
                 text = lines * 3 + filerevtxt + lines * 3
@@ -253,13 +253,13 @@ def py_create_dump_file( filename, fileid, data, tmpdir ):
             if action == "delete":
                 del nodeprops[path]
             elif action == "add" or action == "replace":
-                if nodedata.has_key("props"):
+                if "props" in nodedata:
                     props = nodedata["props"].copy()
                 else:
                     props = {}
                 node.set_properties( props )
                 nodeprops[path] = props
-            elif nodedata.has_key("props"):
+            elif "props" in nodedata:
                 for name, value in nodedata["props"].items():
                     if value == None:
                         del nodeprops[path][name]

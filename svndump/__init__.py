@@ -63,7 +63,7 @@ def copy_dump_file( srcfile, dstfile, transformer=None ):
                 transformer.transform( srcdmp )
             for node in srcdmp.get_nodes_iter():
                 if node.has_copy_from():
-                    if oldRevToNewRev.has_key(node.get_copy_from_rev()):
+                    if node.get_copy_from_rev() in oldRevToNewRev:
                         node.set_copy_from_rev(oldRevToNewRev[node.get_copy_from_rev()])
                     else:
                         #We have a problem, the copy from revision is missing.
@@ -72,7 +72,7 @@ def copy_dump_file( srcfile, dstfile, transformer=None ):
                         candidate = node.get_copy_from_rev()
                         while candidate > 0 and not found:
                             candidate = candidate - 1
-                            found = oldRevToNewRev.has_key(candidate)
+                            found = candidate in oldRevToNewRev
                         if found:
 							oldRevToNewRev[node.get_copy_from_rev()] = candidate
 							node.set_copy_from_rev(candidate)

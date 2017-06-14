@@ -73,7 +73,7 @@ __commands = {
 
 def __help( appname, args ):
     rc = 0
-    if len(args) == 1 and __commands.has_key( args[0] ):
+    if len(args) == 1 and args[0] in __commands:
         __commands[args[0]]( appname + " " + args[0], [ "-h" ] )
     else:
         print ""
@@ -124,12 +124,12 @@ if __name__ == '__main__':
     func = __help;
     args = []
     argidx = 0
-    if pfx == "svndump" and sfx == ".py" and __commands.has_key( cmd ):
+    if pfx == "svndump" and sfx == ".py" and cmd in __commands:
         func = __commands[cmd]
         argidx = 1
     elif len( sys.argv ) > 1:
         cmd = sys.argv[1]
-        if __commands.has_key( cmd ):
+        if cmd in __commands:
             func = __commands[cmd]
             appname += " " + cmd
         elif cmd == "--version":

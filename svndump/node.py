@@ -53,14 +53,14 @@ class SvnDumpNode:
         # check action
         if action != "add" and action != "delete" and \
            action != "change" and action != "replace":
-            raise SvnDumpException, "Unknown action '%s'." % action
+            raise SvnDumpException("Unknown action '%s'." % action)
         # check kind
         if action != "change":
             if kind != "" and kind != "file" and kind != "dir":
-                raise SvnDumpException, "Unknown kind '%s'" % kind
+                raise SvnDumpException("Unknown kind '%s'" % kind)
         else:
             if kind != "file" and kind != "dir":
-                raise SvnDumpException, "Unknown kind '%s'" % kind
+                raise SvnDumpException("Unknown kind '%s'" % kind)
         # check path +++
 
         # path of this node relative to the repository root
@@ -259,8 +259,8 @@ class SvnDumpNode:
         """
 
         if self.__action != "add" and self.__action != "replace":
-            raise SvnDumpException, "Cannot set copy-from for action '%s'" \
-                    % self.__action
+            raise SvnDumpException("Cannot set copy-from for action '%s'" \
+                    % self.__action)
         self.__copy_from_path = path
         self.__copy_from_rev = revnr
 
@@ -274,9 +274,9 @@ class SvnDumpNode:
         @param kind: New kind, either 'file' or 'dir'.
         """
         if self.__kind != "":
-            raise SvnDumpException, "Cannot change node kind"
+            raise SvnDumpException("Cannot change node kind")
         if kind != "file" and kind != "dir":
-            raise SvnDumpException, "Unknown kind '%s'" % kind
+            raise SvnDumpException("Unknown kind '%s'" % kind)
         self.__kind = kind
 
     def set_property( self, name, value ):
@@ -292,8 +292,8 @@ class SvnDumpNode:
         """
 
         if self.__action == "delete":
-            raise SvnDumpException, "Cannot set properties for action '%s'" \
-                    % self.__action
+            raise SvnDumpException("Cannot set properties for action '%s'" \
+                    % self.__action)
         if self.__properties == None:
             self.__properties = {}
         self.__properties[name] = value
@@ -306,8 +306,8 @@ class SvnDumpNode:
         @param name: Name of the property to delete."""
 
         if self.__action == "delete":
-            raise SvnDumpException, "Cannot delete properties for action '%s'" \
-                    % self.__action
+            raise SvnDumpException("Cannot delete properties for action '%s'" \
+                    % self.__action)
         if self.__properties != None:
             if name in self.__properties:
                 del self.__properties[name]
@@ -323,8 +323,8 @@ class SvnDumpNode:
         """
 
         if self.__action == "delete":
-            raise SvnDumpException, "Cannot set properties for action '%s'" \
-                    % self.__action
+            raise SvnDumpException("Cannot set properties for action '%s'" \
+                    % self.__action)
         self.__properties = properties
 
     def set_text_file( self, filename, length=-1, md5="", delete=False ):
@@ -344,11 +344,11 @@ class SvnDumpNode:
         """
 
         if self.__action == "delete":
-            raise SvnDumpException, "Cannot set text for action '%s'" \
-                    % self.__action
+            raise SvnDumpException("Cannot set text for action '%s'" \
+                    % self.__action)
         if self.__kind != "file":
-            raise SvnDumpException, "Cannot set text for kind '%s'" \
-                    % self.__kind
+            raise SvnDumpException("Cannot set text for kind '%s'" \
+                    % self.__kind)
         self.__file_name = filename
         self.__file_offset = 0
         # hmm, no destructors, how to delete that damn temp file ? +++
@@ -378,11 +378,11 @@ class SvnDumpNode:
         """
 
         if self.__action == "delete":
-            raise SvnDumpException, "Cannot set text for action '%s'" \
-                    % self.__action
+            raise SvnDumpException("Cannot set text for action '%s'" \
+                    % self.__action)
         if self.__kind != "file":
-            raise SvnDumpException, "Cannot set text for kind '%s'" \
-                    % self.__kind
+            raise SvnDumpException("Cannot set text for kind '%s'" \
+                    % self.__kind)
         self.__file_obj = fileobj
         self.__file_offset = offset
         self.__text_len = length
@@ -401,11 +401,11 @@ class SvnDumpNode:
         """
 
         if self.__action == "delete":
-            raise SvnDumpException, "Cannot set text for action '%s'" \
-                    % self.__action
+            raise SvnDumpException("Cannot set text for action '%s'" \
+                    % self.__action)
         if self.__kind != "file":
-            raise SvnDumpException, "Cannot set text for kind '%s'" \
-                    % self.__kind
+            raise SvnDumpException("Cannot set text for kind '%s'" \
+                    % self.__kind)
         self.__file_name = node.__file_name
         # dunno how to delete temp file so no special action here +++
         self.__file_delete = node.__file_delete
@@ -423,7 +423,7 @@ class SvnDumpNode:
         """
 
         if self.__text_len == -1:
-            raise SvnDumpException, "Node %s has no text" % self.__path
+            raise SvnDumpException("Node %s has no text" % self.__path)
         if len(self.__file_name) > 0:
             self.__file_obj = open( self.__file_name, "rb" )
         else:
@@ -458,7 +458,7 @@ class SvnDumpNode:
         """
 
         if self.__text_len == -1:
-            raise SvnDumpException, "node has no text"
+            raise SvnDumpException("node has no text")
 
         # create handle
         handle = {}

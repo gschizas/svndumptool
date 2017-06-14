@@ -83,7 +83,7 @@ class SvnDumpFile:
         self.__file_eof = 1
         if not raiseEof:
             return True, ""
-        raise SvnDumpException, "unexpected end of file"
+        raise SvnDumpException("unexpected end of file")
 
     def __read_bin( self, length ):
         """
@@ -126,7 +126,7 @@ class SvnDumpFile:
 
         eof, line = self.__read_line( False )
         if eof or len( line ) != 0:
-            raise SvnDumpException, "expected empty line, found '%s'" % line
+            raise SvnDumpException("expected empty line, found '%s'" % line)
         return
 
     def __get_tag( self, raiseEof ):
@@ -144,7 +144,7 @@ class SvnDumpFile:
             return []
         words = line.split( " ", 1 )
         if len( words ) != 2:
-            raise SvnDumpException, "illegal Tag line '%s'" % line
+            raise SvnDumpException("illegal Tag line '%s'" % line)
         return words
 
     def __get_tag_list( self ):
@@ -184,7 +184,7 @@ class SvnDumpFile:
             # key
             words = line.split()
             if len( words ) != 2 or (words[0] != "K" and words[0] != "D"):
-                raise SvnDumpException, "illegal proprty key ???"
+                raise SvnDumpException("illegal proprty key ???")
             key = self.__read_bin( int(words[1]) )
             self.__skip_empty_line()
             # value
@@ -193,7 +193,7 @@ class SvnDumpFile:
                 eof, line = self.__read_line( True )
                 words = line.split()
                 if len( words ) != 2 or words[0] != "V":
-                    raise SvnDumpException, "illegal proprty value ???"
+                    raise SvnDumpException("illegal proprty value ???")
                 value = self.__read_bin( int(words[1]) )
                 self.__skip_empty_line()
             # set property
@@ -239,8 +239,8 @@ class SvnDumpFile:
 
         # check state
         if self.__state != self.ST_NONE:
-            raise SvnDumpException, "invalid state %d (should be %d)" % \
-                        ( self.__state, self.ST_NONE )
+            raise SvnDumpException("invalid state %d (should be %d)" % \
+                        ( self.__state, self.ST_NONE ))
 
         # set parameters
         self.__filename = filename
@@ -251,9 +251,9 @@ class SvnDumpFile:
         # check that it is a svn dump file
         tag = self.__get_tag( True )
         if tag[0] != "SVN-fs-dump-format-version:":
-            raise SvnDumpException, "not a svn dump file ???"
+            raise SvnDumpException("not a svn dump file ???")
         if tag[1] != "2":
-            raise SvnDumpException, "wrong svn dump file version (expected 2 found %s)" % ( tag[1] )
+            raise SvnDumpException("wrong svn dump file version (expected 2 found %s)" % ( tag[1] ))
         self.__skip_empty_line()
 
         # get UUID
@@ -286,8 +286,8 @@ class SvnDumpFile:
 
         # check state
         if self.__state != self.ST_NONE:
-            raise SvnDumpException, "invalid state %d (should be %d)" % \
-                        ( self.__state, self.ST_NONE )
+            raise SvnDumpException("invalid state %d (should be %d)" % \
+                        ( self.__state, self.ST_NONE ))
 
         # set parameters
         self.__filename = filename
@@ -333,12 +333,12 @@ class SvnDumpFile:
 
         # check state
         if self.__state != self.ST_NONE:
-            raise SvnDumpException, "invalid state %d (should be %d)" % \
-                        ( self.__state, self.ST_NONE )
+            raise SvnDumpException("invalid state %d (should be %d)" % \
+                        ( self.__state, self.ST_NONE ))
 
         # check firstRevNr
         if firstRevNr < 1:
-            raise SvnDumpException, "invalid firstRevNr %d (should be >= 1)" % ( firstRevNr )
+            raise SvnDumpException("invalid firstRevNr %d (should be >= 1)" % ( firstRevNr ))
 
         # set parameters
         self.__filename = filename
@@ -419,8 +419,8 @@ class SvnDumpFile:
 
         # check state
         if self.__state != self.ST_READ:
-            raise SvnDumpException, "invalid state %d (should be %d)" % \
-                        ( self.__state, self.ST_READ )
+            raise SvnDumpException("invalid state %d (should be %d)" % \
+                        ( self.__state, self.ST_READ ))
 
         # check for end of file
         if self.__file_eof:
@@ -735,7 +735,7 @@ class SvnDumpFile:
 
         # check state
         if self.__state != self.ST_WRITE and self.__state != self.ST_CREATE :
-            raise SvnDumpException, "invalid state %d (should be %d or %d)" % ( self.__state, self.ST_CREATE, self.ST_WRITE )
+            raise SvnDumpException("invalid state %d (should be %d or %d)" % ( self.__state, self.ST_CREATE, self.ST_WRITE ))
 
         # set rev nr and check rev props
         self.__rev_nr = self.__rev_nr + 1
@@ -773,8 +773,8 @@ class SvnDumpFile:
 
         # check state
         if self.__state != self.ST_WRITE:
-            raise SvnDumpException, "invalid state %d (should be %d)" % \
-                        ( self.__state, self.ST_WRITE )
+            raise SvnDumpException("invalid state %d (should be %d)" % \
+                        ( self.__state, self.ST_WRITE ))
 
         # write the node
         self.__file.write( "Node-path: " + node.get_path() + "\n" )

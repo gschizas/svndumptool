@@ -94,7 +94,7 @@ class ListDictIter:
     def __iter__( self ):
         return self
 
-    def next( self ):
+    def __next__( self ):
         index = self.__index
         if index >= len( self.__listdict ):
             raise StopIteration()

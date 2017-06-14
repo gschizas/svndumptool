@@ -21,10 +21,10 @@
 #
 # ===============================================================================
 
-from optparse import OptionParser
 import os
+from optparse import OptionParser
 
-from svndump import __version, SvnDumpFile
+from . import __version, SvnDumpFile
 from .node import SvnDumpNode
 
 

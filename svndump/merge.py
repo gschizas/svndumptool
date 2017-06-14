@@ -20,11 +20,11 @@
 #
 # ===============================================================================
 
-import sys
 import re
+import sys
 from optparse import OptionParser
 
-from svndump import __version
+from . import __version
 from .file import SvnDumpFile
 from .node import SvnDumpNode
 

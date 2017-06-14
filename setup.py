@@ -7,6 +7,7 @@
 #
 
 from distutils.core import setup
+
 import svndump
 
 dl_url_fmt = 'http://svn.borg.ch/svndumptool/$V/svndumptool-$V.tar.gz'

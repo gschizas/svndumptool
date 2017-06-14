@@ -22,16 +22,16 @@
 # ===============================================================================
 
 import sys
-from os import mkdir, system, listdir, remove, rmdir
-from os.path import isdir, isfile, abspath
 import time  # for svn cp bug
 import zlib
+from os import mkdir, system, listdir, remove, rmdir
+from os.path import isdir, isfile, abspath
 
 import svndump
-from svndump.node import SvnDumpNode
-from svndump.file import SvnDumpFile
 from svndump.diff import svndump_diff_cmdline
 from svndump.eolfix import svndump_eol_fix_cmdline
+from svndump.file import SvnDumpFile
+from svndump.node import SvnDumpNode
 
 
 def run(cmd):

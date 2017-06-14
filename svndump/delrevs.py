@@ -23,7 +23,7 @@
 
 from optparse import OptionParser
 
-from svndump import __version, SvnDumpFile
+from . import __version, SvnDumpFile
 
 
 def copy_without_empty_revs(srcfile, dstfile):

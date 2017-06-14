@@ -23,10 +23,10 @@
 # ===============================================================================
 
 import os
-import sys
-import tempfile
 import random
 import string
+import sys
+import tempfile
 
 try:
     import hashlib
@@ -35,7 +35,6 @@ except ImportError:
 
 from svndump import __version
 from optparse import OptionParser
-from .file import SvnDumpFile
 from .__init__ import copy_dump_file
 
 

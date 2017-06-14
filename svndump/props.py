@@ -21,12 +21,12 @@
 #
 # ===============================================================================
 
-from optparse import OptionParser
 import os
 import re
 import sys
+from optparse import OptionParser
 
-from svndump import __version, copy_dump_file, SvnDumpFile
+from . import __version, copy_dump_file, SvnDumpFile
 
 
 def re_sub(pattern, replacement, string):

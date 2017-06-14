@@ -23,8 +23,7 @@
 import sys
 from optparse import OptionParser
 
-from svndump import __version, copy_dump_file
-from .common import create_svn_date_str
+from . import __version
 from .file import SvnDumpFile
 
 __doc__ = """Various tools."""

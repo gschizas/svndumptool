@@ -22,10 +22,10 @@
 #
 # ===============================================================================
 
-from optparse import OptionParser
 import re
+from optparse import OptionParser
 
-from svndump import __version, SvnDumpFile
+from . import __version, SvnDumpFile
 
 
 def copy_remove_prop(propname, regex, srcfile, dstfile):

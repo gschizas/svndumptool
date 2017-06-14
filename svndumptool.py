@@ -24,26 +24,21 @@
 import sys
 
 from svndump import __version
+from svndump.add_git_ignore import svndump_add_git_ignore
 from svndump.cvs2svnfix import svndump_cvs2svnfix_cmdline
+from svndump.delrevs import svndump_delete_empty_revs
 from svndump.diff import svndump_diff_cmdline
 from svndump.edit import svndump_edit_cmdline
 from svndump.eolfix import svndump_eol_fix_cmdline
-from svndump.merge import svndump_merge_cmdline
-from svndump.props import svndump_transform_revprop_cmdline, \
-    svndump_transform_prop_cmdline, \
-    svndump_eolfix_revprop_cmdline, \
-    svndump_eolfix_prop_cmdline, \
-    svndump_apply_autoprops_cmdline
-from svndump.sanitize import svndump_sanitize_cmdline
-from svndump.tools import svndump_copy_cmdline, svndump_export_cmdline, \
-    svndump_check_cmdline, svndump_log_cmdline, \
-    svndump_ls_cmdline, \
-    svndump_join_cmdline, svndump_split_cmdline
-from svndump.delrevs import svndump_delete_empty_revs
-from svndump.add_git_ignore import svndump_add_git_ignore
-from svndump.listfiles import svndump_list_large_files
 from svndump.list_authors import svndump_list_authors
+from svndump.listfiles import svndump_list_large_files
+from svndump.merge import svndump_merge_cmdline
+from svndump.props import svndump_transform_revprop_cmdline, svndump_transform_prop_cmdline, \
+    svndump_eolfix_revprop_cmdline, svndump_eolfix_prop_cmdline, svndump_apply_autoprops_cmdline
 from svndump.remove_prop import svndump_remove_prop
+from svndump.sanitize import svndump_sanitize_cmdline
+from svndump.tools import svndump_copy_cmdline, svndump_export_cmdline, svndump_check_cmdline, svndump_log_cmdline, \
+    svndump_ls_cmdline, svndump_join_cmdline, svndump_split_cmdline
 
 __commands = {
     "add-git-ignore": svndump_add_git_ignore,

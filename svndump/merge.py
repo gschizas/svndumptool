@@ -25,8 +25,8 @@ import re
 from optparse import OptionParser
 
 from svndump import __version
-from file import SvnDumpFile
-from node import SvnDumpNode
+from .file import SvnDumpFile
+from .node import SvnDumpNode
 
 __doc__ = """Clases and functions for merging dump files."""
 

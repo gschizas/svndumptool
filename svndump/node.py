@@ -23,7 +23,7 @@
 from os import stat, remove
 from stat import ST_SIZE
 
-from common import *
+from .common import *
 
 __doc__ = """SvnDumpNode class."""
 

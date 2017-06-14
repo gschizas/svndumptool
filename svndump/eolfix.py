@@ -24,9 +24,9 @@ from optparse import OptionParser
 import re
 
 from svndump import __version
-from file import SvnDumpFile
-from node import SvnDumpNode
-from common import sdt_md5
+from .file import SvnDumpFile
+from .node import SvnDumpNode
+from .common import sdt_md5
 
 __doc__ = """Classes and functions for fixing EOL's in a dump file."""
 

@@ -24,8 +24,8 @@
 from optparse import OptionParser
 
 from svndump import __version
-from file import SvnDumpFile
-from node import SvnDumpNode
+from .file import SvnDumpFile
+from .node import SvnDumpNode
 
 __doc__ = """Classes and functions for editing file's in a dump file."""
 

@@ -23,8 +23,8 @@
 from optparse import OptionParser
 
 from svndump import __version
-from file import SvnDumpFile
-from common import sdt_md5
+from .file import SvnDumpFile
+from .common import sdt_md5
 
 __doc__ = """Diff functions and classes."""
 

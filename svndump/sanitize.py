@@ -35,8 +35,8 @@ except ImportError:
 
 from svndump import __version
 from optparse import OptionParser
-from file import SvnDumpFile
-from __init__ import copy_dump_file
+from .file import SvnDumpFile
+from .__init__ import copy_dump_file
 
 class SanitizeDumpFile(object):
     def __init__(self, options):

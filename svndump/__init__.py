@@ -25,8 +25,8 @@ __all__ = [ "common", "cvs2svnfix", "diff", "eolfix", "file", "merge",
             "node", "props", "sanitize", "tools" ]
 
 import re
-import common
-from file import SvnDumpFile
+from . import common
+from .file import SvnDumpFile
 
 __doc__ = """A package for processing subversion dump files."""
 __version = "0.8.0"

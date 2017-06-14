@@ -25,7 +25,7 @@ from optparse import OptionParser
 import os
 
 from svndump import __version, SvnDumpFile
-from node import SvnDumpNode
+from .node import SvnDumpNode
 
 def copy_adding_git_ignore( srcfile, dstfile ):
     """

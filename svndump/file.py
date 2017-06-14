@@ -20,8 +20,8 @@
 #
 #===============================================================================
 
-from common import *
-from node import SvnDumpNode
+from .common import *
+from .node import SvnDumpNode
 
 __doc__ = """SvnDumpFile class."""
 

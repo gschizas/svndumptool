@@ -646,7 +646,7 @@ class SvnDumpFile:
         Returns an iterator returning the nodes.
         """
 
-        return self.__nodes.itervalues()
+        return self.__nodes.values()
 
 
     #------------------------------------------------------------
@@ -1061,7 +1061,7 @@ class SvnDumpFileWithHistory( SvnDumpFile ):
         cfpathlen = len(cfpath)
         cfrev = node.get_copy_from_rev()
         path += "/"
-        for cfnodepath in self.__nodehist.keys()[:]:
+        for cfnodepath in self.__nodehist.keys():
             if cfnodepath.startswith( cfpath ):
                 cfnodehist = self.__nodehist[cfnodepath]
                 i = self.__nodehist_get_rev_index( cfnodehist, cfrev )
@@ -1096,7 +1096,7 @@ class SvnDumpFileWithHistory( SvnDumpFile ):
             return
         # recursive delete
         path += "/"
-        for nodepath in self.__nodehist.keys()[:]:
+        for nodepath in self.__nodehist.keys():
             if nodepath.startswith( path ):
                 nodehist = self.__nodehist[nodepath]
                 if nodehist[-1][1] == -1:

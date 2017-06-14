@@ -205,7 +205,7 @@ class SvnDumpCvs2SvnFix:
         cfpathlen = len(cfpath)
         cfrev = node.get_copy_from_rev()
         path += "/"
-        for cfnodepath in self.__history.keys()[:]:
+        for cfnodepath in self.__history.keys():
             if cfnodepath.startswith( cfpath ):
                 cfnodehist = self.__history[cfnodepath]
                 i = self.__rev_index( cfnodehist, cfrev )
@@ -237,7 +237,7 @@ class SvnDumpCvs2SvnFix:
             return
         # recursive delete
         path += "/"
-        for nodepath in self.__history.keys()[:]:
+        for nodepath in self.__history.keys():
             if nodepath.startswith( path ):
                 nodehist = self.__history[nodepath]
                 if nodehist[-1][1] == -1:

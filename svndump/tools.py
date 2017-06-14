@@ -120,7 +120,7 @@ class SvnDumpExport:
         while dump.read_next_rev():
             revnr = dump.get_rev_nr()
             if revnr in self.__exports:
-                for path, filename in self.__exports[revnr].iteritems():
+                for path, filename in self.__exports[revnr].items():
                     print("r%-6d %s" % ( revnr, path ))
                     nodes = dump.get_nodes_by_path( path, "ACR" )
                     saved = False
@@ -510,7 +510,7 @@ class SvnDumpLs:
             prevrevnr += 1
             while prevrevnr < revnr:
                 if prevrevnr in copyfromrevs:
-                    copyfromrevs[prevrevnr] = filedict.keys()[:]
+                    copyfromrevs[prevrevnr] = list(filedict.keys())
                 prevrevnr += 1
             if revnr > self.revNr:
                 break
@@ -535,11 +535,11 @@ class SvnDumpLs:
                     del filedict[path]
                     if path[-1] != "/":
                         path = path + "/"
-                    for subpath in filedict.keys()[:]:
+                    for subpath in filedict.keys():
                         if subpath.startswith( path ):
                             del filedict[subpath]
             if revnr in copyfromrevs:
-                copyfromrevs[revnr] = filedict.keys()[:]
+                copyfromrevs[revnr] = list(filedict.keys())
         dump.close()
 
         filelist = []
